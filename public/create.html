@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLLWAVE</title>
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+
+    <!-- css  -->
+    <link rel="stylesheet" href="create.css">
+</head>
+<body>
+    <header>
+        <h1>POLLWAVE</h1>
+        <nav>
+            <a href="#">Vote Page</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Create a poll</h2>
+        <p class="muted">Ask anything. Share the link. See results live.</p>
+        <form action="">
+            <label for="question" class="muted">Your question</label>
+            <input type="text" id="question" name="question" placeholder="What is your favorite JS framework?" required>
+            <label for="" id="options" class="options">Options</label>
+            <input type="text" placeholder="React" id="option1">
+            <input type="text" placeholder="Vue" id="option2">
+            <input type="text" placeholder="Svelle" id="option3">
+            <input type="text" placeholder="None-vanilla JS" id="option4">
+
+            <button class="create-button">Create poll</button>
+        </form>
+    </main>
+    <script src="create.js"></script>
+</body>
+</html>
