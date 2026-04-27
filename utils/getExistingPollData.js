@@ -4,7 +4,8 @@ import fs from 'node:fs/promises'
 export async function getExistingPollData(){
 try{
     const dataPath = path.join('data', 'data.json')
-    const existingData = JSON.parse(await fs.readFile(dataPath))
+    const data = await fs.readFile(dataPath)
+    const existingData = JSON.parse(data)
     return existingData
 }catch(err){
     console.error(err)

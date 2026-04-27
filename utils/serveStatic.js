@@ -8,12 +8,16 @@ export async function serveStatic(req, res, baseDir){
     const filePath = path.join(publicDir, req.url === '/'? 'create.html': req.url)
     const ext = path.extname(filePath)
     const contentType = getContentType(ext)
-    const content = await fs.readFile(filePath)
 
     try{
+        const content = await fs.readFile(filePath)
         sendResponse(res, 200, contentType, content)
 
     }catch(err){
-        sendResponse(res, 404, 'text/html', `Resource not found`, err)
+        if(err.code === 'ENOENT'){
+            sendResponse(res, 404, 'text/html', `Resource not found:${err}`)
+        }else{
+            sendResponse(res, 500, 'text/html', 'server error')
+        }
     }
 }
