@@ -11,5 +11,5 @@ const types = {
     ".svg": "image/svg+xml"
   }
   
-return types[ext.toLowerCase()]|| 'create.html'
+return types[ext.toLowerCase()]|| 'text/html'
 }

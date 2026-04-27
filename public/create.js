@@ -8,9 +8,11 @@ form.addEventListener('submit', async (e)=>{
     const option2 = pollFormData.get('option2')
     const option3 = pollFormData.get('option3')
     const option4 = pollFormData.get('option4')
+    
+    const pollObj = {}
 
 if(question, option1, option2, option3, option4){
-    const pollObj = {
+    pollObj = {
         question: question,
         option1: option1,
         option2: option2,
