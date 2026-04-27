@@ -1,0 +1,24 @@
+{
+  "name": "pollwave",
+  "version": "1.0.0",
+  "description": "An app where users can create polls, vote, and watch results update live.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/biosoluwa/POLLWAVE.git"
+  },
+  "author": "Biose",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/biosoluwa/POLLWAVE/issues"
+  },
+  "homepage": "https://github.com/biosoluwa/POLLWAVE#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
