@@ -22,7 +22,7 @@ if(question, option1, option2, option3, option4){
     }
 }
     try{
-    await fetch('/poll', {
+    await fetch('/polls', {
         method: "POST",
         headers:{
             "Content-Type": 'application/json'
@@ -32,5 +32,13 @@ if(question, option1, option2, option3, option4){
     }catch(err){
         console.error('Post request failed', err.message)
     }
-
+    await renderPolls()
 })
+
+
+async function renderPolls(){
+    const res = await fetch('/polls')
+    const data = await res.json()
+    console.log(data)
+       
+}
