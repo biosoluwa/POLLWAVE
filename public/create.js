@@ -32,15 +32,6 @@ if(question, option1, option2, option3, option4){
     }catch(err){
         console.error('Post request failed', err.message)
     }
-
-    console.log(pollObj)
-    await renderPolls(pollObj.id)
+    window.location.href = `poll.html?${pollObj.id}`
 })
 
-
-async function renderPolls(id){
-    const res = await fetch(`/polls?id=${id}`)
-    const data = await res.json()
-    console.log(data)
-       
-}

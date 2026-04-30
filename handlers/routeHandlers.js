@@ -14,10 +14,14 @@ import { addNewDataToExistingData } from "../utils/addNewDataToExistingData.js";
     }
 }
 
-async function handleGetRequest(req, res){
+async function handleGetRequest(req, res, queryObj){
     const dataPath = path.join('data', 'data.json')
-    const content = await fs.readFile(dataPath) 
-    sendResponse(res, 200, 'application/json', content)
+    let content = await fs.readFile(dataPath) 
+    content = JSON.parse(content)
+    content = content.filter(function(poll){
+        return queryObj.id === poll.id
+    })[0]
+    sendResponse(res, 200, 'application/json', JSON.stringify(content))
 }
 
 export {handleGetRequest, handlePostRequest}
