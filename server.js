@@ -10,7 +10,10 @@ const server = http.createServer(async(req,res)=>{
         if(req.method === 'POST'){
            await handlePostRequest(req,res)
         }else if(req.method === 'GET'){
-           await handleGetRequest(req, res)
+            const urlObj = new URL(req.url, `http://${req.headers.host}`)
+            const queryObj = Object.fromEntries(urlObj.searchParams)
+            console.log(queryObj)
+            await handleGetRequest(req, res)
         }
     }else if(!req.url.startsWith('/poll')){
         await serveStatic(req, res, __dirname)

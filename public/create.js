@@ -32,12 +32,14 @@ if(question, option1, option2, option3, option4){
     }catch(err){
         console.error('Post request failed', err.message)
     }
-    await renderPolls()
+
+    console.log(pollObj)
+    await renderPolls(pollObj.id)
 })
 
 
-async function renderPolls(){
-    const res = await fetch('/polls')
+async function renderPolls(id){
+    const res = await fetch(`/polls?id=${id}`)
     const data = await res.json()
     console.log(data)
        
