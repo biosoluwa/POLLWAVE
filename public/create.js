@@ -11,7 +11,7 @@ form.addEventListener('submit', async (e)=>{
 
     let pollObj = {}
 
-if(question, option1, option2, option3, option4){
+if(question && option1 && option2 && option3 && option4){
     pollObj = {
         question: question,
         option1: option1,
@@ -29,9 +29,9 @@ if(question, option1, option2, option3, option4){
         },
         body: JSON.stringify(pollObj)
     })
+    window.location.href = `poll.html?id=${pollObj.id}`
     }catch(err){
-        console.error('Post request failed', err.message)
+        console.error('Post request failed:', err.message)
     }
-    window.location.href = `poll.html?${pollObj.id}`
 })
 

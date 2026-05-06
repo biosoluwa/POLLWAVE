@@ -5,12 +5,14 @@ import { sendResponse } from "../utils/sendResponse.js";
 import { addNewDataToExistingData } from "../utils/addNewDataToExistingData.js";
 
  async function handlePostRequest(req, res){
+        console.log('POST request received')
+
     try{
         const pollData = await collectIncomingPollData(req)
-        addNewDataToExistingData(pollData)
+        await addNewDataToExistingData(pollData)
         sendResponse(res, 201, 'application/json', JSON.stringify(pollData))
     }catch(err){
-        console.err(err)
+        console.error(err)
     }
 }
 
