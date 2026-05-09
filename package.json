@@ -20,5 +20,8 @@
   "homepage": "https://github.com/biosoluwa/POLLWAVE#readme",
   "devDependencies": {
     "nodemon": "^3.1.14"
-  }
+  },
+  "nodemonConfig": {
+    "ignore": ["data/*"]
+}
 }

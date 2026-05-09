@@ -1,7 +1,9 @@
+
 const form = document.querySelector('form')
 
 form.addEventListener('submit', async (e)=>{
     e.preventDefault()
+
     const pollFormData = new FormData(form)
     const question = pollFormData.get('question')
     const option1 = pollFormData.get('option1')
@@ -22,14 +24,14 @@ if(question && option1 && option2 && option3 && option4){
     }
 }
     try{
-    await fetch('/polls', {
-        method: "POST",
-        headers:{
-            "Content-Type": 'application/json'
-        },
-        body: JSON.stringify(pollObj)
-    })
-    window.location.href = `poll.html?id=${pollObj.id}`
+        await fetch('/polls', {
+            method: "POST",
+            headers:{
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify(pollObj)
+        })
+        window.location.href = `poll.html?id=${pollObj.id}`
     }catch(err){
         console.error('Post request failed:', err.message)
     }
