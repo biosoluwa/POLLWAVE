@@ -23,6 +23,9 @@ document.getElementById('container').innerHTML = voteHtml
 
 
 document.getElementById('container').addEventListener('click', async function(e){
+    console.log(e.target)
+    console.log(e.target.innerHTML)
+    if(e.target.tagName !== 'BUTTON') return
             const text = e.target.innerHTML
             try{
                 await fetch('/vote',{
@@ -35,6 +38,7 @@ document.getElementById('container').addEventListener('click', async function(e)
                         text: text
                     })
                 })
+                console.log('vote success')
                 renderBarChart(data)
             }catch(err){
                 console.error(err)
@@ -47,6 +51,7 @@ function renderBarChart(data){
         <p>Results updating live</p>` 
 
     data.options.forEach(function(option){
+                voteHtml += 
                             `<div>
                                 <div>
                                     <p>${option.text} <span>40%</span></p>
@@ -55,5 +60,5 @@ function renderBarChart(data){
                             </div>
                             `
     })
-            document.getElementById('container').innerHTML = voteHtml
-        }
+document.getElementById('container').innerHTML = voteHtml
+}
