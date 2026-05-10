@@ -23,8 +23,6 @@ document.getElementById('container').innerHTML = voteHtml
 
 
 document.getElementById('container').addEventListener('click', async function(e){
-    console.log(e.target)
-    console.log(e.target.innerHTML)
     if(e.target.tagName !== 'BUTTON') return
             const text = e.target.innerHTML
             try{
