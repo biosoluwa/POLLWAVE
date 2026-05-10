@@ -16,9 +16,6 @@ function renderPolls(data){
     voteHtml += 
         `<div>
             <button>${option.text}</button>
-            <button>${option.text}</button>
-            <button>${option.text}</button>
-            <button>${option.text}</button>
         </div>
         `
  })
@@ -54,19 +51,7 @@ function renderBarChart(data){
                                 <div>
                                     <p>${option.text} <span>40%</span></p>
                                     <div></div>
-                                </div>
-                                <div>
-                                    <p>${option.text} <span>40%</span></p>
-                                    <div></div>
-                                </div>                                
-                                <div>
-                                    <p>${option.text} <span>40%</span></p>
-                                    <div></div>
-                                </div>                                
-                                <div>
-                                    <p>${option.text} <span>40%</span></p>
-                                    <div></div>
-                                </div>                            
+                                </div>                     
                             </div>
                             `
     })
