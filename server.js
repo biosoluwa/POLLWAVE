@@ -1,6 +1,6 @@
 import http from 'node:http'
 import { serveStatic } from './utils/serveStatic.js'
-import {handleGetRequest, handlePostRequest } from './handlers/routeHandlers.js'
+import {handleGetRequest, handlePostRequest, handleVotePostRequest } from './handlers/routeHandlers.js'
 
 const PORT = 8000
 const __dirname = import.meta.dirname
@@ -14,7 +14,10 @@ const server = http.createServer(async(req,res)=>{
             const queryObj = Object.fromEntries(urlObj.searchParams)
             await handleGetRequest(req, res, queryObj)
         }
-    }else{
+    }else if(req.url.startsWith('/vote')){
+        handleVotePostRequest(req, res)
+    }
+    else{
         await serveStatic(req, res, __dirname)
     }
 })

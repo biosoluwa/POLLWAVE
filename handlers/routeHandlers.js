@@ -26,4 +26,8 @@ async function handleGetRequest(req, res, queryObj){
     sendResponse(res, 200, 'application/json', JSON.stringify(content))
 }
 
-export {handleGetRequest, handlePostRequest}
+async function handleVotePostRequest(req, res){
+  const voteData =  await collectIncomingPollData(req)
+  console.log(voteData)
+}
+export {handleGetRequest, handlePostRequest, handleVotePostRequest}
