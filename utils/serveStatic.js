@@ -6,7 +6,6 @@ import { getContentType } from "./getContentType.js"
 export async function serveStatic(req, res, baseDir){
     const publicDir = path.join(baseDir, 'public')
     const parsedUrl = new URL(req.url, 'http://localhost')
-    console.log(parsedUrl)
     const pathname = parsedUrl.pathname
     const filePath = path.join(publicDir, pathname === '/'? 'create.html': pathname)
     const ext = path.extname(filePath)

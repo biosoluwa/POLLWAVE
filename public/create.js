@@ -16,10 +16,22 @@ form.addEventListener('submit', async (e)=>{
 if(question && option1 && option2 && option3 && option4){
     pollObj = {
         question: question,
-        option1: option1,
-        option2: option2,
-        option3: option3,
-        option4: option4,
+        option1: {
+            text: option1,
+            votes: 0
+        },
+        option2: {
+            text:option2,
+        votes: 0
+        },
+        option3: {
+            text:option3,
+            votes: 0
+        },
+        option4: {
+            text:option4,
+            votes: 0
+        },
         id: crypto.randomUUID()
     }
 }
