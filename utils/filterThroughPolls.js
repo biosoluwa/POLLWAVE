@@ -1,12 +1,16 @@
 import fs from "node:fs/promises"
 import path from 'node:path'
 
-async function filterThroughPolls(voteData){
+export async function filterThroughPolls(voteData){
     const filePath = path.join('data', 'data.json')
-    const allPolls = await fs.readFile(filePath)
+    let allPolls = await fs.readFile(filePath)
+    allPolls = JSON.parse(allPolls)
+console.log(typeof allPolls)
+let poll = allPolls.filter(poll =>poll.id === voteData.id)[0]
+// const optionKeys = Object.keys(poll).filter(key =>key.startsWith('option'))
+option = poll.options.find(function(optionObj){
+    return optionObj.text === voteData.text
+})
 
-   let poll = allPolls.filter(function(poll){
-        return poll.id === voteData.id
-    })[0]
-    console.log(poll)
+option.votes ++
 }

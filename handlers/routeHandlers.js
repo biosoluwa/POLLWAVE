@@ -29,7 +29,6 @@ async function handleGetRequest(req, res, queryObj){
 
 async function handleVotePostRequest(req, res){
   const voteData =  await collectIncomingPollData(req)
-  console.log(voteData)
-  filterThroughPolls(voteData)
+  await filterThroughPolls(voteData)
 }
 export {handleGetRequest, handlePostRequest, handleVotePostRequest}
