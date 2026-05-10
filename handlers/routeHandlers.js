@@ -3,6 +3,7 @@ import fs from 'node:fs/promises'
 import { collectIncomingPollData } from "../utils/collectIncomingPollData.js";
 import { sendResponse } from "../utils/sendResponse.js";
 import { addNewDataToExistingData } from "../utils/addNewDataToExistingData.js";
+import {filterThroughPolls} from "../utils/filterThroughPolls.js"
 
  async function handlePostRequest(req, res){
         console.log('POST request received')
@@ -29,5 +30,6 @@ async function handleGetRequest(req, res, queryObj){
 async function handleVotePostRequest(req, res){
   const voteData =  await collectIncomingPollData(req)
   console.log(voteData)
+  filterThroughPolls(voteData)
 }
 export {handleGetRequest, handlePostRequest, handleVotePostRequest}
