@@ -63,3 +63,16 @@ button{
 button:hover{
     background-color: #574fd6;
 }
+
+.container{
+    width: 100%;
+}
+
+.mini-container{
+    width: 100%;
+}
+
+.progress-container{
+    width: 100%;
+    background-color: #888888;
+}
