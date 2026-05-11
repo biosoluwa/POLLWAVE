@@ -12,13 +12,12 @@ export async function updateLiveVote(req,res, queryObj){
     const filePath = path.join('data', 'data.json')
 
    
-
-    voteUpdateEmitter.on('voteUpdate', async function(pollId){
+ async function onVoteUpdate(pollId){
         if(pollId !== queryObj.id) return
         let polls = await fs.readFile(filePath)
         polls = JSON.parse(polls)
 
-        const poll = polls.filter(function(poll){
+        const poll = polls.find(function(poll){
             return poll.id === queryObj.id
         })
 
@@ -28,8 +27,9 @@ export async function updateLiveVote(req,res, queryObj){
                 poll:poll
             })}\n\n`
         )
-    })
+}
+    voteUpdateEmitter.on('voteUpdate', onVoteUpdate)
     res.on('close', function(){
-        voteUpdateEmitter.removeAllListeners('voteUpdate')
+        voteUpdateEmitter.removeListener('voteUpdate', onVoteUpdate)
     })
 }

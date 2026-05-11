@@ -1,12 +1,26 @@
-
 const params = new URLSearchParams(window.location.search)
 const id = params.get('id')
+ 
+
+const votedPoll = JSON.parse(localStorage.getItem('pollId'))|| []
+
+if(votedPoll.includes(id)){
+
 try{
+    const res = await fetch(`/polls?id=${id}`)
+    const data = await res.json()
+    renderBarChart(data)
+}catch(err){
+    console.error(err)
+}
+}else{
+    try{
     const res = await fetch(`/polls?id=${id}`)
     const data = await res.json()
     renderPolls(data)
 }catch(err){
     console.error(err)
+}
 }
 
 function renderPolls(data){
@@ -16,7 +30,7 @@ function renderPolls(data){
     data.options.forEach(function(option){
         voteHtml += 
             `<div>
-                <button>${option.text}</button>
+                <button data-id="${data.id}">${option.text}</button>
             </div>
             `
     })
@@ -24,7 +38,7 @@ function renderPolls(data){
 
 
     document.getElementById('container').addEventListener('click', async function(e){
-        if(e.target.tagName !== 'BUTTON') return
+        if(!e.target.dataset.id) return
                 const text = e.target.innerHTML
                 try{
                     await fetch('/vote',{
@@ -37,16 +51,20 @@ function renderPolls(data){
                             text: text
                         })
                     })
+                    const votedPoll = JSON.parse(localStorage.getItem('pollId'))|| []
+                    votedPoll.push(id)
+                    localStorage.setItem('pollId', JSON.stringify(votedPoll))
+                    const res = await fetch(`/polls?id=${id}`)
+                    const poll = await res.json()
+                    renderBarChart(poll, text)
+
+
                 const eventSource = new EventSource(`/vote/live?id=${id}`)
 
                 eventSource.onmessage = event => {
                     console.log(event.data)
                     const data = JSON.parse(event.data)
-                    console.log(data)
-                    console.log(data.poll)
-                    const poll = data.poll
-
-                    renderBarChart(poll, text)
+                    renderBarChart(data.poll, text)
                 }
 
                 eventSource.onerror = () => console.log('connection failed')
@@ -68,7 +86,7 @@ function renderBarChart( poll, text){
     }, poll.options[0])
 
     let voteHtml = `<h2>${poll.question}</h2>
-            <p class="muted">${totalVotes}votes</p>
+            <p class="muted">${totalVotes} votes</p>
             <p class="green">🟢Results updating live</p>` 
 
     poll.options.forEach(function(option){
@@ -88,12 +106,31 @@ function renderBarChart( poll, text){
                         <p>${text}(your vote)</p>
                     </div>   
                     <div>
-                                        <button>Copy link</button>
-                                        <button>Share on Twitter</button>
+                                        <button id="copy">Copy link</button>
+                                        <button id="share">Share on Twitter</button>
                     </div>  `
             
 
     document.getElementById('container').innerHTML = voteHtml
 
+    
+document.getElementById('copy').addEventListener('click', async function(){
+   try{ 
+        await navigator.clipboard.writeText(window.location.href)
+   }catch(err){
+    console.error('Failed to copy:', err)
+   }
+})
+
+document.getElementById('share').addEventListener('click', function(){
+    const url = window.location.href
+    const text = document.title
+
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`
+
+    window.open(twitterUrl, 'TwitterWindow', 'width=600,height=300,menubar=no,toolbar=no,resizable=yes,scrollbars=yes')
+})
+
 }
+
 
