@@ -4,6 +4,7 @@ import { collectIncomingPollData } from "../utils/collectIncomingPollData.js";
 import { sendResponse } from "../utils/sendResponse.js";
 import { addNewDataToExistingData } from "../utils/addNewDataToExistingData.js";
 import {filterThroughPolls} from "../utils/filterThroughPolls.js"
+import { voteUpdateEmitter } from "../events/eventEmitter.js";
 
  async function handlePostRequest(req, res){
         console.log('POST request received')
@@ -30,6 +31,7 @@ async function handleGetRequest(req, res, queryObj){
 async function handleVotePostRequest(req, res){
   const voteData =  await collectIncomingPollData(req)
   await filterThroughPolls(voteData)
+  voteUpdateEmitter.emit('voteUpdate', voteData.id)
   sendResponse(res, 201, 'application/json', JSON.stringify(voteData))
 }
 export {handleGetRequest, handlePostRequest, handleVotePostRequest}

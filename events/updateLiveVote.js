@@ -10,14 +10,18 @@ export async function updateLiveVote(req,res, queryObj){
     res.setHeader('connection', 'keep-alive')
 
     const filePath = path.join('data', 'data.json')
-    let polls = await fs.readFile(filePath)
-    polls = JSON.parse(polls)
 
-    const poll = polls.filter(function(poll){
-        return poll.id === queryObj.id
-    })
+   
 
-    voteUpdateEmitter.on('voteUpdate', function(poll){
+    voteUpdateEmitter.on('voteUpdate', function(pollId){
+        if(pollId !== queryObj.id) return
+        let polls = await fs.readFile(filePath)
+        polls = JSON.parse(polls)
+
+        const poll = polls.filter(function(poll){
+            return poll.id === queryObj.id
+        })
+
     res.write(
         `data: ${JSON.stringify({
             event: 'vote-updated',

@@ -1,4 +1,3 @@
-import { voteUpdateEmitter } from "../events/eventEmitter.js"
 
 const params = new URLSearchParams(window.location.search)
 const id = params.get('id')
@@ -38,7 +37,6 @@ function renderPolls(data){
                             text: text
                         })
                     })
-               voteUpdateEmitter.emit('voteUpdate')
                 const eventSource = new EventSource(`/vote/live?id=${id}`)
 
                 eventSource.onmessage = event => {
