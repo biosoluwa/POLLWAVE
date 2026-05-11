@@ -40,7 +40,10 @@ function renderPolls(data){
                 const eventSource = new EventSource(`/vote/live?id=${id}`)
 
                 eventSource.onmessage = event => {
+                    console.log(event.data)
                     const data = JSON.parse(event.data)
+                    console.log(data)
+                    console.log(data.poll)
                     const poll = data.poll
 
                     renderBarChart(poll, text)

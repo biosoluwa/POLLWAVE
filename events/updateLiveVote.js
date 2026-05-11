@@ -13,7 +13,7 @@ export async function updateLiveVote(req,res, queryObj){
 
    
 
-    voteUpdateEmitter.on('voteUpdate', function(pollId){
+    voteUpdateEmitter.on('voteUpdate', async function(pollId){
         if(pollId !== queryObj.id) return
         let polls = await fs.readFile(filePath)
         polls = JSON.parse(polls)
@@ -22,11 +22,14 @@ export async function updateLiveVote(req,res, queryObj){
             return poll.id === queryObj.id
         })
 
-    res.write(
-        `data: ${JSON.stringify({
-            event: 'vote-updated',
-            poll:poll
-        })}\n\n`
-    )
-})
+        res.write(
+            `data: ${JSON.stringify({
+                event: 'vote-updated',
+                poll:poll
+            })}\n\n`
+        )
+    })
+    res.on('close', function(){
+        voteUpdateEmitter.removeAllListeners('voteUpdate')
+    })
 }
