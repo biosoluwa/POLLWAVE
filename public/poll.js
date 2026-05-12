@@ -119,10 +119,15 @@ function renderBarChart( poll, text){
 
     document.getElementById('container').innerHTML = voteHtml
 
-    
-document.getElementById('copy').addEventListener('click', async function(){
+const copyButton = document.getElementById('copy')
+
+copyButton.addEventListener('click', async function(){
    try{ 
         await navigator.clipboard.writeText(window.location.href)
+        copyButton.textContent = 'Link Copied!'
+        setTimeout(function(){
+            copyButton.textContent = 'Copy Link'
+        }, 5000)
    }catch(err){
     console.error('Failed to copy:', err)
    }
@@ -139,6 +144,5 @@ document.getElementById('share').addEventListener('click', function(){
 
 }
 
-// console.log(window.location.href = `poll.html?id=${id}`)
 
 
