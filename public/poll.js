@@ -4,12 +4,14 @@ const id = params.get('id')
 
 const votedPoll = JSON.parse(localStorage.getItem('pollId'))|| []
 
+const text = JSON.parse(localStorage.getItem('text'))
+
 if(votedPoll.includes(id)){
 
 try{
     const res = await fetch(`/polls?id=${id}`)
     const data = await res.json()
-    renderBarChart(data)
+    renderBarChart(data, text)
 }catch(err){
     console.error(err)
 }
@@ -24,14 +26,14 @@ try{
 }
 
 function renderPolls(data){
-    let voteHtml = `<h2>${data.question}</h2>
-            <p class="muted"></p>
-            <p>Results updating live</p>`
+    let voteHtml = `
+                <h2>Cast your vote. Every opinion counts</h2>
+                <p>Question: ${data.question}</p>
+            `
     data.options.forEach(function(option){
         voteHtml += 
-            `<div>
-                <button data-id="${data.id}">${option.text}</button>
-            </div>
+            `
+                <button class="option-button" data-id="${data.id}">${option.text}</button>
             `
     })
     document.getElementById('container').innerHTML = voteHtml
@@ -54,6 +56,7 @@ function renderPolls(data){
                     const votedPoll = JSON.parse(localStorage.getItem('pollId'))|| []
                     votedPoll.push(id)
                     localStorage.setItem('pollId', JSON.stringify(votedPoll))
+                    localStorage.setItem('text', JSON.stringify(text))
                     const res = await fetch(`/polls?id=${id}`)
                     const poll = await res.json()
                     renderBarChart(poll, text)
@@ -85,8 +88,8 @@ function renderBarChart( poll, text){
         return option.votes > max.votes ? option : max
     }, poll.options[0])
 
-    let voteHtml = `<h2>${poll.question}</h2>
-            <p class="muted">${totalVotes} votes</p>
+    let voteHtml = `<h2 class="zero-margin">${poll.question}</h2>
+            <p class="muted total-votes">${totalVotes} ${totalVotes === 1? 'vote': 'votes'}</p>
             <p class="green">🟢Results updating live</p>` 
 
     poll.options.forEach(function(option){
@@ -95,19 +98,22 @@ function renderBarChart( poll, text){
         voteHtml += 
                                 `
                                     <div class="mini-container">
-                                        <p>${option.text} ${percentage}%</span></p>
+                                        <div class="option-percent">
+                                            <p>${option.text}</p>
+                                            <span> ${percentage}%</span>
+                                        </div>
                                         <div class="progress-container">
                                             <div class="progress-bar ${isWinner? 'winner': ''}" style="width:${percentage}%"></div>
                                         </div>
                                     </div>                
                                 `
         })
-        voteHtml += `<div>
-                        <p>${text}(your vote)</p>
+        voteHtml += `<div class="your-vote">
+                        <p>${text} (your vote)</p>
                     </div>   
-                    <div>
-                                        <button id="copy">Copy link</button>
-                                        <button id="share">Share on Twitter</button>
+                    <div class="copy-share-buttons">
+                                        <button id="copy" class="copy">Copy link</button>
+                                        <button id="share" class="share">Share on Twitter</button>
                     </div>  `
             
 
@@ -132,5 +138,7 @@ document.getElementById('share').addEventListener('click', function(){
 })
 
 }
+
+// console.log(window.location.href = `poll.html?id=${id}`)
 
 

@@ -15,20 +15,18 @@
 <body>
     <header>
         <h1>POLLWAVE</h1>
-        <nav>
-        </nav>
     </header>
     <main>
         <h2>Create a poll</h2>
         <p class="muted">Ask anything. Share the link. See results live.</p>
         <form>
             <label for="question" class="muted">Your question</label>
-            <input type="text" id="question" name="question" placeholder="What is your favorite JS framework?" required>
-            <label for="" id="options" class="options">Options</label>
-            <input type="text" placeholder="React" id="option1" name="option1">
-            <input type="text" placeholder="Vue" id="option2" name="option2">
-            <input type="text" placeholder="Svelle" id="option3" name="option3">
-            <input type="text" placeholder="None-vanilla JS" id="option4" name="option4">
+            <input type="text" id="question" name="question" placeholder="E.g. What is your favorite JS framework?" required>
+            <p id="options" class="options">Options</p>
+            <input type="text" placeholder="E.g. React" id="option1" name="option1" aria-label="Option 1" required>
+            <input type="text" placeholder="E.g. Vue" id="option2" name="option2" aria-label="Option 2" required>
+            <input type="text" placeholder="E.g. Svelle" id="option3" name="option3" aria-label="Option 3" required>
+            <input type="text" placeholder="E.g. None-vanilla JS" id="option4" name="option4" aria-label="Option 4" required>
 
             <button class="create-button">Create poll</button>
         </form>
